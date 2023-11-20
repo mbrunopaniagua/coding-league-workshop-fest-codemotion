@@ -2,10 +2,10 @@ package com.ing.codemotion.morse;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Morse {
     private static final Map<Character, String> morseMap = new HashMap<>();
-
     static {
         morseMap.put('A', ".-");
         morseMap.put('B', "-...");
@@ -63,13 +63,31 @@ public class Morse {
         morseMap.put('¡', "--...-");
     }
 
-
     public String morseToText(String morse) {
-        return "Just do it";
+        StringBuilder builder = new StringBuilder();
+        for (String word : morse.split(" / ")) {
+            for (String letter : word.split(" ")) {
+                if (morseMap.containsValue(letter)) {
+                    builder.append(
+                        morseMap.entrySet().stream()
+                            .filter(entry -> Objects.equals(entry.getValue(), letter))
+                            .map(Map.Entry::getKey)
+                            .findFirst()
+                            .orElse(null));
+                }
+            }
+            builder.append(" ");
+        }
+        return builder.toString().toUpperCase().trim();
     }
 
     public String textToMorse(String text) {
-        return "Just do it";
+        StringBuilder builder = new StringBuilder();
+        for (char c : text.toUpperCase().toCharArray()) {
+            if (morseMap.containsKey(c)) {
+                builder.append(morseMap.get(c)).append(" ");
+            }
+        }
+        return builder.toString().trim();
     }
-
 }
