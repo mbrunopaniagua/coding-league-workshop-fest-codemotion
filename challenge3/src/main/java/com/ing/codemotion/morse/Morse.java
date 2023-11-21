@@ -2,10 +2,10 @@ package com.ing.codemotion.morse;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class Morse {
     private static final Map<Character, String> morseMap = new HashMap<>();
+
     static {
         morseMap.put('A', ".-");
         morseMap.put('B', "-...");
@@ -63,17 +63,19 @@ public class Morse {
         morseMap.put('¡', "--...-");
     }
 
+    private static final Map<String, Character> reverseMorseMap = new HashMap<>();
+
+    static {
+        morseMap.forEach((key, value) -> reverseMorseMap.put(value, key));
+    }
+
+
     public String morseToText(String morse) {
         StringBuilder builder = new StringBuilder();
         for (String word : morse.split(" / ")) {
             for (String letter : word.split(" ")) {
-                if (morseMap.containsValue(letter)) {
-                    builder.append(
-                        morseMap.entrySet().stream()
-                            .filter(entry -> Objects.equals(entry.getValue(), letter))
-                            .map(Map.Entry::getKey)
-                            .findFirst()
-                            .orElse(null));
+                if (reverseMorseMap.containsKey(letter)) {
+                    builder.append(reverseMorseMap.get(letter));
                 }
             }
             builder.append(" ");
@@ -90,4 +92,5 @@ public class Morse {
         }
         return builder.toString().trim();
     }
+
 }
