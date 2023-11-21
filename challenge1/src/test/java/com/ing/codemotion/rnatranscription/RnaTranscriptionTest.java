@@ -19,4 +19,30 @@ class RnaTranscriptionTest {
         assertEquals("", rnaTranscription.transcribe(""));
     }
 
+    @Test
+    public void testRnaTranscriptionOfCytosineIsGuanine() {
+        assertEquals("G", rnaTranscription.transcribe("C"));
+    }
+
+    @Test
+    public void testRnaTranscriptionOfGuanineIsCytosine() {
+        assertEquals("C", rnaTranscription.transcribe("G"));
+    }
+
+    @Test
+    public void testRnaTranscriptionOfThymineIsAdenine() {
+        assertEquals("A", rnaTranscription.transcribe("T"));
+    }
+
+    @Test
+    public void testRnaTranscriptionOfAdenineIsUracil() {
+        assertEquals("U", rnaTranscription.transcribe("A"));
+    }
+
+    @Test
+    public void testRnaTranscriptionOfMultipleNucleotides() {
+        assertEquals("CGCAUGGAUCCCUUGAUCCUCCUAAUGGGGUGCAUUAAAUGGCUGGUCCUGAUCGAUUUGACCUAUCGAUAAUUUUAAUAAGCUACCCGUACCUUGAUCCUCCGAUAAUCUGGAUCGAUACCAUCAUCACCUAUCGAUCGAUACGGGUGCAUUAAAUGCCUUGAUCCUCCGAUACGAUAAUUUUAAUCGAUAAUUUUAAUAAGAUCGAUAAUUCCUAU",
+                rnaTranscription.transcribe("GCGTACCTAGGGAACTAGGAGGATTACCCCACGTAATTTACCGACCAGGACTAGCTAAACTGGATAGCTATTAAAATTATTCGATGGGCATGGAACTAGGAGGCTATTAGACCTAGCTATGGTAGTAGTGGATAGCTAGCTATGCCCACGTAATTTACGGAACTAGGAGGCTATGCTATTAAAATTAGCTATTAAAATTATTCTAGCTATTAAGGATA"));
+    }
+
 }
