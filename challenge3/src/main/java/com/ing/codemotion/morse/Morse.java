@@ -1,7 +1,9 @@
 package com.ing.codemotion.morse;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Morse {
     private static final Map<Character, String> morseMap = new HashMap<>();
@@ -71,26 +73,22 @@ public class Morse {
 
 
     public String morseToText(String morse) {
-        StringBuilder builder = new StringBuilder();
-        for (String word : morse.split(" / ")) {
-            for (String letter : word.split(" ")) {
-                if (reverseMorseMap.containsKey(letter)) {
-                    builder.append(reverseMorseMap.get(letter));
-                }
-            }
-            builder.append(" ");
-        }
-        return builder.toString().toUpperCase().trim();
+        return Arrays.stream(morse.split(" / "))
+            .map(word -> Arrays.stream(word.split(" "))
+                .filter(reverseMorseMap::containsKey)
+                .map(reverseMorseMap::get)
+                .map(Object::toString)
+                .collect(Collectors.joining()))
+            .collect(Collectors.joining(" "))
+            .toUpperCase()
+            .trim();
     }
 
     public String textToMorse(String text) {
-        StringBuilder builder = new StringBuilder();
-        for (char c : text.toUpperCase().toCharArray()) {
-            if (morseMap.containsKey(c)) {
-                builder.append(morseMap.get(c)).append(" ");
-            }
-        }
-        return builder.toString().trim();
+        String result = text.toUpperCase().chars()
+            .mapToObj(c -> morseMap.getOrDefault((char) c, ""))
+            .collect(Collectors.joining(" "));
+        return result.trim();
     }
 
 }
