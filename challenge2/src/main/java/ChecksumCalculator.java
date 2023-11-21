@@ -1,19 +1,13 @@
+import java.util.Arrays;
+
 public class ChecksumCalculator {
 
     public static int calculateChecksum(int[][] matrix) {
         int result = 0;
 
-        for (int i = 0; i < matrix.length; i++) {
-            int minValue = Integer.MAX_VALUE;
-            int maxValue = Integer.MIN_VALUE;
-            for (int j = 0; j < matrix[i].length; j++) {
-                if (matrix[i][j] < minValue) {
-                    minValue = matrix[i][j];
-                }
-                if (matrix[i][j] > maxValue) {
-                    maxValue = matrix[i][j];
-                }
-            }
+        for (int[] ints : matrix) {
+            int minValue = Arrays.stream(ints).min().getAsInt();
+            int maxValue = Arrays.stream(ints).max().getAsInt();
 
             int different = maxValue - minValue;
 
