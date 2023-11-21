@@ -6,7 +6,7 @@ class ChecksumCalculatorTest {
 
     @Test
     public void basic() {
-        assertEquals(0, ChecksumCalculator.calculateChecksum(new int[][]{{}}));
+        assertEquals(8, ChecksumCalculator.calculateChecksum(new int[][]{{5,1,9,5}}));
     }
 
 }
