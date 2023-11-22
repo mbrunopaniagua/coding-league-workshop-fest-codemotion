@@ -1,1 +1,1 @@
-# workshop-fest-codemotion
+# coding-league-workshop-fest-codemotion
